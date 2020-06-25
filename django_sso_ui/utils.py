@@ -2,7 +2,7 @@ import os
 import json
 from cas import CASClient
 from django.conf import settings as django_settings
-from django.utils.six.moves import urllib_parse
+from urllib.parse import urlunparse
 
 
 def normalize_username(username):
@@ -15,11 +15,10 @@ def get_protocol(request):
 
     return "http"
 
-
 def get_service_url(request, redirect_to=None):
     protocol = get_protocol(request)
     host = request.get_host()
-    service = urllib_parse.urlunparse((protocol, host, request.path, "", "", ""))
+    service = urlunparse((protocol, host, request.path, "", "", ""))
 
     return service
 
